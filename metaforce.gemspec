@@ -23,7 +23,7 @@ EOL
 
   s.add_dependency 'savon'
   s.add_dependency 'rubyzip'
-  s.add_dependency 'activesupport'
+  s.add_dependency 'activesupport', '3.2.18'
   s.add_dependency 'hashie'
   s.add_dependency 'thor'
   s.add_dependency 'listen'
