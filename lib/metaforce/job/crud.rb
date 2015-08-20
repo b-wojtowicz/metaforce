@@ -6,8 +6,8 @@ module Metaforce
     end
 
     def perform
-      @id = @client.send(@method, *@args).id
-      super
+      @id = @client.send(@method, *@args)
+      # super
     end
   end
 end

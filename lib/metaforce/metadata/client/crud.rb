@@ -10,7 +10,7 @@ module Metaforce
         #   client._create(:apex_page, :full_name => 'TestPage', label: 'Test page', :content => '<apex:page>foobar</apex:page>')
         def _create(type, metadata={})
           type = type.to_s.camelize
-          request :create do |soap|
+          request :createMetadata do |soap|
             soap.body = {
               :metadata => prepare(metadata)
             }.merge(attributes!(type))
@@ -25,7 +25,7 @@ module Metaforce
         def _delete(type, *args)
           type = type.to_s.camelize
           metadata = args.map { |full_name| {:full_name => full_name} }
-          request :delete do |soap|
+          request :deleteMetadata do |soap|
             soap.body = {
               :metadata => metadata
             }.merge(attributes!(type))
@@ -39,7 +39,7 @@ module Metaforce
         #   client._update(:apex_page, 'OldPage', :full_name => 'TestPage', :label => 'Test page', :content => '<apex:page>hello world</apex:page>')
         def _update(type, current_name, metadata={})
           type = type.to_s.camelize
-          request :update do |soap|
+          request :updateMetadata do |soap|
             soap.body = {
               :metadata => {
                 :current_name => current_name,
@@ -47,6 +47,15 @@ module Metaforce
                 :attributes! => { :metadata => { 'xsi:type' => "ins0:#{type}" } }
               }
             }
+          end
+        end
+
+        def _rename_metadata(type, metadata = {})
+          type = type.to_s.camelize
+          request :renameMetadata do |soap|
+            soap.body = {
+                :metadata => prepare(metadata)
+            }.merge(attributes!(type))
           end
         end
 
@@ -60,6 +69,10 @@ module Metaforce
 
         def delete(*args)
           Job::CRUD.new(self, :_delete, args)
+        end
+
+        def rename_metadata(*args)
+          Job::CRUD.new(self, :_rename_metadata, args)
         end
 
       private

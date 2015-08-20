@@ -52,7 +52,9 @@ module Metaforce
 
     def perform_request(*args, &block)
       response = client.request(*args, &block)
-      Hashie::Mash.new(response.body)[:"#{args[0]}_response"].result
+      operation_name = args[0].to_s.underscore
+      result = Hashie::Mash.new(response.body)[:"#{operation_name}_response"].result
+      fail 'Did not successfully perform the request' unless result.success
     end
 
     # Internal Calls the authentication handler, which should set @options to a new
