@@ -37,10 +37,10 @@ module Metaforce
     #   # => #<Metaforce::Job @id=nil>
     #
     # Returns self.
-    # def perform
-    #   start_heart_beat
-    #   self
-    # end
+    def perform
+      start_heart_beat
+      self
+    end
 
     # Public: Utility method to determine if .perform has been called yet.
     #
@@ -103,9 +103,9 @@ module Metaforce
     #   # => true
     #
     # Returns true if the job has completed, false otherwise.
-    # def done?
-    #   status.done
-    # end
+    def done?
+      status.done
+    end
 
     # Public: Returns the state if the job has finished processing.
     #

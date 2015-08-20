@@ -48,12 +48,12 @@ module Metaforce
         #   client.status('04sU0000000Wx6KIAS')
         #   #=> {:done=>true, :id=>"04sU0000000Wx6KIAS", :state=>"Completed", ...}
         def status(ids, type=nil)
-          # method = :check_status
-          # method = :"check_#{type}_status" if type
-          # ids = [ids] unless ids.respond_to?(:each)
-          # request method do |soap|
-          #   soap.body = { :ids => ids }
-          # end
+          method = :check_status
+          method = :"check_#{type}_status" if type
+          ids = [ids] unless ids.respond_to?(:each)
+          request method do |soap|
+            soap.body = { :ids => ids }
+          end
         end
 
         # Public: Deploy code to Salesforce.
