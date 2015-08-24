@@ -38,8 +38,10 @@ module Metaforce
     #
     # Returns self.
     def perform
-      start_heart_beat
-      self
+      unless id.nil?
+        start_heart_beat
+        self
+      end
     end
 
     # Public: Utility method to determine if .perform has been called yet.
@@ -115,9 +117,9 @@ module Metaforce
     #   # => 'Completed'
     #
     # Returns the state of the job.
-    # def state
-    #   status.state
-    # end
+    def state
+      status.state
+    end
 
     # Public: Check if the job is in a given state.
     #
