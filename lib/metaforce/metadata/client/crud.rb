@@ -54,8 +54,8 @@ module Metaforce
           type = type.to_s.camelize
           request :renameMetadata do |soap|
             soap.body = {
-                :metadata => prepare(metadata)
-            }.merge(attributes!(type))
+                :type => type
+            }.merge(metadata)
           end
         end
 
