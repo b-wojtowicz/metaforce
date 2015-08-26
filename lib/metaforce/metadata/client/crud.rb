@@ -10,7 +10,7 @@ module Metaforce
         #   client._create(:apex_page, :full_name => 'TestPage', label: 'Test page', :content => '<apex:page>foobar</apex:page>')
         def _create_metadata(type, metadata={})
           type = type.to_s.camelize
-          request :createMetadata do |soap|
+          request :create_metadata do |soap|
             soap.body = {
               :metadata => prepare(metadata)
             }.merge(attributes!(type))
@@ -25,7 +25,7 @@ module Metaforce
         def _delete_metadata(type, *args)
           type = type.to_s.camelize
           metadata = args.map { |full_name| {:full_name => full_name} }
-          request :deleteMetadata do |soap|
+          request :delete_metadata do |soap|
             soap.body = {
               :metadata => metadata
             }.merge(attributes!(type))
@@ -39,7 +39,7 @@ module Metaforce
         #   client._update(:apex_page, 'OldPage', :full_name => 'TestPage', :label => 'Test page', :content => '<apex:page>hello world</apex:page>')
         def _update_metadata(type, current_name, metadata={})
           type = type.to_s.camelize
-          request :updateMetadata do |soap|
+          request :update_metadata do |soap|
             soap.body = {
               :metadata => {
                 :current_name => current_name,
@@ -52,7 +52,7 @@ module Metaforce
 
         def _rename_metadata(type, metadata = {})
           type = type.to_s.camelize
-          request :renameMetadata do |soap|
+          request :rename_metadata do |soap|
             soap.body = {
                 :type => type
             }.merge(metadata)
@@ -92,7 +92,7 @@ module Metaforce
         def encode_content(metadata)
           metadata[:content] = Base64.encode64(metadata[:content]) if metadata.has_key?(:content)
         end
-        
+
       end
     end
   end
