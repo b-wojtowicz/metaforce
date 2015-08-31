@@ -8,3 +8,4 @@ retrieve.zip
 test.rb
 .metaforce.yml
 .idea/*
+.ruby-*
